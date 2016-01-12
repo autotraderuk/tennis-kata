@@ -24,9 +24,25 @@ gulp.task('clean', function() {
 
 /*--- js ----*/
 
+var vendorFiles = [
+  'vendor/**/angular.js',
+  'vendor/**/ui-bootstrap-tpls.min.js',
+  'vendor/**/angular-placeholders-0.0.1-SNAPSHOT.min.js',
+  'vendor/**/release/angular-ui-router.js',
+  'vendor/**/angular-mocks.js'
+];
+
 gulp.task('test', function (done) {
+
+    var testFiles = vendorFiles.concat([
+        'build/templates-app.js',
+        'build/app/**/*.js',
+        'src/**/*.spec.js'
+    ]);
+
     new Server({
         configFile: __dirname + '/karma.conf.js',
+        files:testFiles,
         singleRun: true
     }, done).start();
 });
@@ -63,17 +79,7 @@ gulp.task('copy-index', function(){
 });
 
 gulp.task('copy-vendor-files', function(){
-
-    var filesToCopy = [
-        './vendor/**/angular.js',
-        './vendor/**/ui-bootstrap-tpls.min.js',
-        './vendor/**/angular-placeholders-0.0.1-SNAPSHOT.min.js',
-        './vendor/**/angular-ui-router.js',
-        './vendor/**/route.js'
-    ];
-
-    return gulp.src(filesToCopy)
-        .pipe(gulp.dest(profile+'/vendor'));
+    return gulp.src(vendorFiles).pipe(gulp.dest(profile+'/vendor'));
 });
 
 gulp.task('html2js', function(){
@@ -87,19 +93,18 @@ gulp.task('html2js', function(){
 });
 
 gulp.task('index', function () {
-    var includes = [profile+'/app/**/*.js', './'+profile+'/assets/main.css'];
 
-    var vendorJS = [
-        profile+'/vendor/**/angular.js',
-        profile+'/vendor/**/ui-bootstrap-tpls.min.js',
-        profile+'/vendor/**/angular-placeholders-0.0.1-SNAPSHOT.min.js',
-        profile+'/vendor/**/angular-ui-router.js',
-        profile+'/vendor/**/route.js'
-    ];
+    var vendorScriptPaths = [];
+    for (var i = 0; i < vendorFiles.length; i++) {
+        vendorScriptPaths.push(profile+'/'+vendorFiles[i]);
+    }
 
-    vendorJS = vendorJS.concat(includes);
+    var scriptPaths = vendorScriptPaths.concat([
+        profile+'/app/**/*.js',
+        './'+profile+'/assets/main.css'
+    ]);
 
-    var sources = gulp.src(vendorJS, {read: false});
+    var sources = gulp.src(scriptPaths, {read: false});
 
     return gulp.src(profile+'/index.html')
         .pipe(inject(sources, {relative: true}))
