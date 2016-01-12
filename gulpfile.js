@@ -7,7 +7,8 @@ var gulp = require('gulp'),
     del = require('del'),
     runSequence = require('run-sequence'),
     concat = require('gulp-concat'),
-    html2js = require("gulp-ng-html2js");
+    html2js = require("gulp-ng-html2js"),
+    livereload = require('gulp-livereload');
 
 var versionNumber = 'v1.0',
     profile = 'build';
@@ -48,6 +49,7 @@ gulp.task('test', function (done) {
 });
 
 gulp.task('watch', ['build'], function(callback) {
+    livereload.listen();
     gulp.watch('src/**/*.js', function(){
         runSequence('copy-js-files', 'test');
     });
@@ -69,7 +71,8 @@ gulp.task('less', function () {
         .pipe(less({
             paths: [ path.join(__dirname, 'less', 'includes') ]
         }))
-        .pipe(gulp.dest(profile+'/assets'));
+        .pipe(gulp.dest(profile+'/assets'))
+        .pipe(livereload());
 });
 
 gulp.task('copy-files', ['copy-index', 'copy-js-files', 'copy-vendor-files', 'html2js']);
@@ -89,7 +92,8 @@ gulp.task('html2js', function(){
             prefix: ""
         }))
         .pipe(concat("templates-app.js"))
-        .pipe(gulp.dest("./"+profile));
+        .pipe(gulp.dest("./"+profile))
+        .pipe(livereload());
 });
 
 gulp.task('index', function () {
@@ -109,5 +113,6 @@ gulp.task('index', function () {
     return gulp.src(profile+'/index.html')
         .pipe(inject(sources, {relative: true}))
         .pipe(injectString.replace('%%VERSION_NUMBER%%', versionNumber))
-        .pipe(gulp.dest(profile));
+        .pipe(gulp.dest(profile))
+        .pipe(livereload());
 });

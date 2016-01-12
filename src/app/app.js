@@ -1,7 +1,6 @@
 angular.module( 'ngBoilerplate', [
   'templates-app',
-  'ngBoilerplate.home',
-  'ngBoilerplate.about',
+  'tennis.home',
   'ui.router'
 ])
 
