@@ -12,19 +12,6 @@ module.exports = function(config) {
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine'],
 
-
-    files: [
-      'vendor/angular/angular.js',
-      'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
-      'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
-      'vendor/angular-ui-router/release/angular-ui-router.js',
-      'vendor/angular-mocks/angular-mocks.js',
-      'build/templates-app.js',
-      'build/app/**/*.js',
-      'src/**/*.spec.js'
-    ],
-
-
     exclude: [
       'src/assets/**/*.js'
     ],
