@@ -48,6 +48,21 @@ gulp.task('test', function (done) {
     }, done).start();
 });
 
+gulp.task('test-debug', function(done){
+    var testFiles = vendorFiles.concat([
+        'build/templates-app.js',
+        'build/app/**/*.js',
+        'src/**/*.spec.js'
+    ]);
+
+    new Server({
+        configFile: __dirname + '/karma.conf.js',
+        files:testFiles,
+        browsers:['Chrome'],
+        singleRun: false
+    }, done).start();
+});
+
 gulp.task('watch', ['build'], function(callback) {
     livereload.listen();
     gulp.watch('src/**/*.js', function(){
