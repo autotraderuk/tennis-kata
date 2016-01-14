@@ -18,22 +18,25 @@ angular.module( 'tennis.home', [
 
 .controller( 'HomeCtrl', function HomeController( $scope, tennisService ) {
   $scope.scoreText = "Press the button to begin";
+  $scope.newGame = newGame;
+  $scope.scorePlayer1 = scorePlayer1;
+  $scope.scorePlayer2 = scorePlayer2;
 
-  $scope.newGame = function(){
+  function newGame(){
     tennisService.reset();
     $scope.scoreText = tennisService.getScore();
     $scope.showButtons = true;
-  };
+  }
 
-  $scope.scorePlayer1 = function(){
+  function scorePlayer1(){
     tennisService.scorePlayer1();
     $scope.scoreText = tennisService.getScore();
-  };
+  }
 
-  $scope.scorePlayer2 = function(){
+  function scorePlayer2(){
     tennisService.scorePlayer2();
     $scope.scoreText = tennisService.getScore();
-  };
+  }
 })
 
 ;

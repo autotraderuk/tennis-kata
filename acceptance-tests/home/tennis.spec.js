@@ -5,12 +5,7 @@ describe('tennis page tests', function() {
     beforeEach( function(){
         browser.get('http://localhost:8080');
     });
-
-    var checkButtonVisibility = function(visible){
-
-    };
-
-    it('initial screen', function() {
+     it('initial screen', function() {
         expect(browser.getTitle()).toEqual('Tennis Game');
         expect(element(by.binding('scoreText')).getText()).toEqual('Press the button to begin');
         expect(element(by.id('scorePlayer1')).isDisplayed()).toEqual(false);
@@ -26,7 +21,7 @@ describe('tennis page tests', function() {
 
     var checkScoreText = function(selector, text){
         expect(selector.getText()).toEqual(text);
-    }
+    };
 
     it('new game', function() {
         setupNewGame();
