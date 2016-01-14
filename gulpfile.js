@@ -8,7 +8,8 @@ var gulp = require('gulp'),
     runSequence = require('run-sequence'),
     concat = require('gulp-concat'),
     html2js = require("gulp-ng-html2js"),
-    connect = require('gulp-connect');
+    connect = require('gulp-connect'),
+    protractor = require("gulp-protractor").protractor;
 
 var versionNumber = 'v1.0',
     profile = 'build';
@@ -136,4 +137,13 @@ gulp.task('webserver', function() {
         root: 'build',
         livereload: true
     });
+});
+
+gulp.task('end-to-end', function() {
+    gulp.src(["acceptance-tests/**/*.spec.js"])
+        .pipe(protractor({
+            configFile: "acceptance-tests/protractor.conf.js",
+            args: ['--baseUrl', 'http://127.0.0.1:8000']
+        }))
+        .on('error', function(e) { throw e });
 });

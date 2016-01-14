@@ -11,7 +11,8 @@ angular.module('tennis.service', [])
         return {
             getScore:getScore,
             scorePlayer1: scorePlayer1,
-            scorePlayer2: scorePlayer2
+            scorePlayer2: scorePlayer2,
+            reset:reset
         };
 
         function getScore(){
@@ -64,6 +65,10 @@ angular.module('tennis.service', [])
         }
         function getScoreText(score){
             return scoreMap[score];
+        }
+        function reset(){
+            player1Score = 0;
+            player2Score = 0;
         }
     })
 ;

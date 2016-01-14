@@ -119,5 +119,14 @@ describe( 'tennis service score calculations', function() {
     expect( tennisService.getScore()).toBe("deuce");
   }));
 
+  it( 'game reset half way through', inject( function(tennisService) {
+    tennisService.scorePlayer1();
+    tennisService.scorePlayer2();
+    tennisService.scorePlayer1();
+    tennisService.scorePlayer2();
+    tennisService.reset();
+    expect( tennisService.getScore()).toBe("love all");
+  }));
+
 });
 

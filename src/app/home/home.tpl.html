@@ -1,13 +1,13 @@
 <div>
   <div>
-    <button class="btn">New Game</button>
+    <button class="btn" id="newGame" ng-click="newGame()">New Game</button>
   </div>
   <div style="margin-top:50px">
-    <label>Score goes here</label>
+    <label>{{scoreText}}</label>
   </div>
-  <div style="margin-top:20px">
-    <button class="btn">Player 1 Score</button>
-    <button class="btn">Player 2 Score</button>
+  <div style="margin-top:20px" ng-show="showButtons">
+    <button class="btn" id="scorePlayer1" ng-click="scorePlayer1()">Player 1 Score</button>
+    <button class="btn" id="scorePlayer2" ng-click="scorePlayer2()">Player 2 Score</button>
   </div>
 </div>
 
