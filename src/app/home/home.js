@@ -1,10 +1,11 @@
 angular.module( 'tennis.home', [
   'ui.router',
-    'tennis.service'
+  'tennis.service'
 ])
+.config(config).controller( 'HomeCtrl', HomeController );
 
-.config(function config( $stateProvider ) {
-  $stateProvider.state( 'home', {
+function config( $stateProvider ) {
+  $stateProvider.state('home', {
     url: '/home',
     views: {
       "main": {
@@ -12,11 +13,11 @@ angular.module( 'tennis.home', [
         templateUrl: 'home/home.tpl.html'
       }
     },
-    data:{ pageTitle: 'Tennis Game' }
+    data: {pageTitle: 'Tennis Game'}
   });
-})
+}
 
-.controller( 'HomeCtrl', function HomeController( $scope, tennisService ) {
+function HomeController( $scope, tennisService ) {
   $scope.scoreText = "Press the button to begin";
   $scope.newGame = newGame;
   $scope.scorePlayer1 = scorePlayer1;
@@ -37,7 +38,5 @@ angular.module( 'tennis.home', [
     tennisService.scorePlayer2();
     $scope.scoreText = tennisService.getScore();
   }
-})
-
-;
+}
 
