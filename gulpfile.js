@@ -8,7 +8,7 @@ var gulp = require('gulp'),
     runSequence = require('run-sequence'),
     concat = require('gulp-concat'),
     html2js = require("gulp-ng-html2js"),
-    livereload = require('gulp-livereload');
+    connect = require('gulp-connect');
 
 var versionNumber = 'v1.0',
     profile = 'build';
@@ -16,7 +16,7 @@ var versionNumber = 'v1.0',
 gulp.task('default', ['watch']);
 
 gulp.task('build', function(callback) {
-    runSequence('clean', 'copy-files', 'less', 'index','test', callback);
+    runSequence('clean', 'copy-files', 'less', 'index','test','webserver', callback);
 });
 
 gulp.task('clean', function() {
@@ -64,7 +64,6 @@ gulp.task('test-debug', function(done){
 });
 
 gulp.task('watch', ['build'], function(callback) {
-    livereload.listen();
     gulp.watch('src/**/*.js', function(){
         runSequence('copy-js-files', 'test');
     });
@@ -87,7 +86,7 @@ gulp.task('less', function () {
             paths: [ path.join(__dirname, 'less', 'includes') ]
         }))
         .pipe(gulp.dest(profile+'/assets'))
-        .pipe(livereload());
+        .pipe(connect.reload());
 });
 
 gulp.task('copy-files', ['copy-index', 'copy-js-files', 'copy-vendor-files', 'html2js']);
@@ -108,7 +107,7 @@ gulp.task('html2js', function(){
         }))
         .pipe(concat("templates-app.js"))
         .pipe(gulp.dest("./"+profile))
-        .pipe(livereload());
+        .pipe(connect.reload());
 });
 
 gulp.task('index', function () {
@@ -129,5 +128,12 @@ gulp.task('index', function () {
         .pipe(inject(sources, {relative: true}))
         .pipe(injectString.replace('%%VERSION_NUMBER%%', versionNumber))
         .pipe(gulp.dest(profile))
-        .pipe(livereload());
+        .pipe(connect.reload());
+});
+
+gulp.task('webserver', function() {
+    connect.server({
+        root: 'build',
+        livereload: true
+    });
 });
