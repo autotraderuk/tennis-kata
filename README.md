@@ -1,7 +1,4 @@
-Originally I was trying to create a simple deriviative of [ngBoilerplate](http://joshdmiller.github.com/ng-boilerplate)
-that uses gulp instead of grunt.
-
-I'm now starting to change other parts of it. I'm slowly implementing a tennis kata using angular, protractor and karma.
+Tennis kata
 
 ## Quick Start
 
@@ -10,6 +7,13 @@ Run these commands:
 <pre>
 npm install
 bower install
+gulp
+</pre>
+
+You will get an error message if gulp isn't installed. If so then you need to run these additional command:
+
+<pre>
+npm install -g gulp
 gulp
 </pre>
 
