@@ -10,7 +10,12 @@ bower install
 gulp
 </pre>
 
-You will get an error message if gulp isn't installed. If so then you need to run these additional command:
+You will get an error message if gulp (or bower) isn't installed. If so then you need to run these additional command:
+
+<pre>
+npm install -g bower
+bower install
+</pre>
 
 <pre>
 npm install -g gulp
