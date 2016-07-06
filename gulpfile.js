@@ -17,7 +17,7 @@ var versionNumber = 'v1.0',
 gulp.task('default', ['watch']);
 
 gulp.task('build', function(callback) {
-    runSequence('clean', 'copy-files', 'less', 'index','test','webserver', callback);
+    runSequence('clean', 'copy-files', 'less', 'index','webserver', callback);
 });
 
 gulp.task('clean', function() {
@@ -66,7 +66,7 @@ gulp.task('test-debug', function(done){
 
 gulp.task('watch', ['build'], function(callback) {
     gulp.watch('src/**/*.js', function(){
-        runSequence('copy-js-files', 'test');
+        runSequence('copy-js-files');
     });
     gulp.watch('src/**/*.less', ['less']);
     gulp.watch('src/index.html', function(){
